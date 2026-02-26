@@ -72,7 +72,7 @@ def _parse_resource_items(soup: BeautifulSoup, section_name: str) -> list[Resour
         items.append(
             ResourceItem(
                 title=item_title,
-                url=dl_url,
+                url=BASE_OCW + dl_url if dl_url.startswith('/') else dl_url,
                 file_size_str=size_str or '? B',
                 file_size_bytes=size_bytes,
                 resource_type=res_type,
