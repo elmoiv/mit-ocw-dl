@@ -14,6 +14,7 @@ A clean, fast, dark-themed desktop app to browse and batch-download course mater
 | | |
 |---|---|
 | 🔍 **Smart scraping** | Parses the course `/download/` page and groups all files by section automatically |
+| 🔗 **Full section scraping** | Detects truncated sections and automatically follows "See all" links to fetch the complete file list |
 | ☑️ **Granular selection** | Check/uncheck entire sections or individual files; parent checkboxes go tristate |
 | 📊 **Live size summary** | Per-file size, per-section total, and selected total all update as you click |
 | ⬇️ **Parallel downloads** | Configurable 1–8 worker threads; runs concurrently for maximum speed |
@@ -72,6 +73,7 @@ You don't need to append `/download/` — the app handles that automatically.
 ### 2. Scrape
 
 Click **🔍 Scrape**. The app fetches the download page, parses all sections (Lecture Videos, Problem Sets, Exams, etc.) and lists every file with its type and size. This runs in a background thread so the UI stays responsive.
+For sections that are truncated on the download page, the app automatically follows the "See all" link and fetches the complete file list before displaying results.
 
 ### 3. Select what you want
 
@@ -143,6 +145,7 @@ mit_ocw_downloader/
 ## Known Limitations
 
 - Only works with courses that have a `/download/` page on OCW (most do, but some older ones don't).
+- Sections with a "See all" link require an extra HTTP request per section during scraping — on courses with many truncated sections this may take a few extra seconds.
 - File sizes shown in the tree come from the HTML listing and may occasionally differ slightly from the actual download size.
 - The app does not log in or bypass any access controls — it can only download publicly available materials.
 
